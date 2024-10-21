@@ -37,6 +37,7 @@ var (
 	ErrInvalidCredential = errors.New("invalid credentials")
 	ErrInvalidAppId      = errors.New("invalid app_id")
 	ErrUserExists        = errors.New("user already exists")
+	ErrUserNotFound      = errors.New("user not found")
 )
 
 // New возвращает новый интерфейс сервиса Auth
@@ -109,11 +110,7 @@ func (a *Auth) Login(
 	return token, nil
 }
 
-func (a *Auth) RegisterNewUser(
-	ctx context.Context,
-	email string,
-	password string,
-) (int64, error) {
+func (a *Auth) RegisterNewUser(ctx context.Context, email string, password string) (int64, error) {
 	const op = "auth.RegisterNewUser"
 
 	log := a.log.With(
